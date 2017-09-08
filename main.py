@@ -154,7 +154,8 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     for i in range(epochs):
         print("Epoach..{}".format(i+1))
         for image, label in get_batches_fn(batch_size):
-            _,loss = sess.run([train_op,cross_entropy_loss],feed_dict={input_image:image,correct_label:label,keep_prob:0,learning_rate:0.0001})
+            _,loss = sess.run([train_op,cross_entropy_loss],feed_dict={input_image:image,correct_label:label,keep_prob:0.5,learning_rate:0.0001})
+            print("Loss: = {:.3f} \n".format(loss))
     # pass
 tests.test_train_nn(train_nn)
 
@@ -182,7 +183,7 @@ def run():
         # OPTIONAL: Augment Images for better results
         #  https://datascience.stackexchange.com/questions/5224/how-to-prepare-augment-images-for-neural-network
 
-        epochs = 100
+        epochs = 50
         batch_size = 10
         correct_label = tf.placeholder(tf.int32,[None,None,None,num_classes],name='correct_label')
         learning_rate = tf.placeholder(tf.float32,name='learning_rate')
