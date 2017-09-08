@@ -74,8 +74,7 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
                                              kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
 
     # this is a 1x1 conv for layer 4
-    layer4_conv_decode2 = tf.layers.conv2d_transpose(vgg_layer4_out, num_classes, 1,
-                                                     strides=(2, 2),
+    layer4_conv_decode2 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1,
                                                      padding='same',
                                                      kernel_initializer=tf.random_normal_initializer(stddev=0.01),
                                                      kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
@@ -92,8 +91,7 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
                                                      kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
 
     # this is a 1x1 conv for layer 4
-    layer3_conv_decode2 = tf.layers.conv2d_transpose(vgg_layer3_out, num_classes, 1,
-                                                     strides=(2, 2),
+    layer3_conv_decode2 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1,
                                                      padding='same',
                                                      kernel_initializer=tf.random_normal_initializer(stddev=0.01),
                                                      kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
@@ -153,7 +151,8 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     """
     # TODO: Implement function
     sess.run(tf.global_variables_initializer())
-    for epochs in epochs:
+    for i in range(epochs):
+        print("Epoach..{}".format(i+1))
         for image, label in get_batches_fn(batch_size):
             _,loss = sess.run([train_op,cross_entropy_loss],feed_dict={input_image:image,correct_label:label,keep_prob:0,learning_rate:0.0001})
     # pass
