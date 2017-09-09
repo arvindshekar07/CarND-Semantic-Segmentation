@@ -2,6 +2,38 @@
 ### Introduction
 In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
 
+### Architecture:
+ The  design implementation here is very close to this paper on 
+ [Fully Convolutional Networks for Semantic Segmentation](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf).
+ ![Layer working ](Screen%20Shot%202017-09-09%20at%202.26.31%20PM.png).
+ 
+In this we are using a pre-trained VGG-16 network and replaced the final layer fully connected layer to  a 1x1 CNN.
+ The depth setting was equal to the number of classes we have and in this case we are finding pixels which are roads with non roads .
+ 
+Then performance of the network was inproved with the addition of skip  connection.
+Here we do a element wise add  with  the vgg 3rd and 4th layer  to the 1x1 convolved layer 7 and layer 4  respectively.
+
+#### Parameters used:
+- Loss function: Cross entropy
+- Optimizer: Adam optimizer
+- learning rate: 0.0001
+- key-prob:0.5
+- epoach :50
+- batch :10
+
+
+###Ouput
+
+Here is the output of the FCN to find the roads.
+As you can see the  green highlighted  area are the pixels that are supposed to be road surface to the 
+FCN.
+
+
+
+![segmetation1](um_000014.png)
+![segmetation1](um_000027.png)
+![segmetation1](um_000037.png)
+![segmetation1](um_000077.png)
 ### Setup
 ##### Frameworks and Packages
 Make sure you have the following is installed:
