@@ -200,10 +200,16 @@ def run():
         train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_loss, input_image,correct_label, keep_prob, learning_rate)
 
         ## TODO save model
+        saver = tf.train.Saver()
+        save_path = saver.save(sess, "model.ckpt")
+        print("Model saved in file: %s" % save_path)
+
         json_string = sess.to_json()
         sess.save("model.h5")
         with open('model.json', 'w') as outfile:
             json.dump(json_string, outfile)
+
+
 
         # TODO: Save inference data using helper.save_inference_samples
         helper.save_inference_samples(runs_dir, data_dir, sess, image_shape, logits, keep_prob, input_image)
